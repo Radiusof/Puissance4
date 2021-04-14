@@ -1,16 +1,18 @@
 #include "functions.hpp"
 using namespace std;
 
-Grille::Grille()
-{
-    int num;
-    int &x = num;
-        while(attribut_grille){
-            attribut_grille[x] == Vide;
-            x++;
-             }
+Grille::Grille(){                               //Reset la Grille
+            int i =0;
+            while (attribut_grille){
+                if (i < 42){
+                attribut_grille[i] = Vide;
+                i++;
+                }
+                else {
+                    break;
+                }
+            }           
+        }
 
-         
-    }
 
 
