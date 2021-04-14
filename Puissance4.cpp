@@ -1,7 +1,11 @@
 // Puissance 4 C++
 #include <iostream>
-#include "functions.hpp"
-#include "h.cpp"
+#include "grille.hpp"
+#include "grille.cpp"
+#include "joueur.hpp"
+#include "joueur.cpp"
+#include "jeu.hpp"
+#include "jeu.cpp"
 using namespace std;
 
 

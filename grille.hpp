@@ -1,5 +1,5 @@
-#ifndef _FUNCTIONS_HPP
-#define _FUNCTIONS_HPP
+#ifndef _GRILLE_HPP
+#define _GRILLE_HPP
 
 #include <iostream>
 
@@ -50,39 +50,5 @@ class Grille{
 
 };
 
-class Joueur{
-    public:
-        string nom;
-
-        Jeton couleur;
-
-        Joueur(string nom, Jeton couleur){              // Constructeur qui initialise les 2 attributs précédents
-            this->nom = nom;
-            this->couleur = couleur;
-        }
-
-        string getNom(){
-            return this -> nom;
-        }       
-
-        Jeton getCouleur(){
-            return this -> couleur;
-        }       
-};
-
-
-
-class Jeu {
-    public:
-        Grille grille;
-
-        Joueur joueur1, joueur2;
-
-        Jeu();       // Constructeur demandant à chaque joueur leurs noms pour pouvoir initialiser les deux joueurs. On initialise aussi le pointeur joueurCourant sur le premier joueur.
-
-        void loop();   //Cette fonction va d’abord afficher la grille de jeu, demander au joueur courant dans quelle colonne il souhaite mettre sont jeton, puis changer de joueur, afficher la grille, et demander         dans quelle colonne il souhaite jouer. Puis on redémarre la boucle 
-            
-
-};
 
 #endif

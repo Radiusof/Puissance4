@@ -1,4 +1,7 @@
-#include "functions.hpp"
+// Fichier comportant le code du constructeur Grille.
+
+#include "grille.hpp"
+
 using namespace std;
 
 Grille::Grille(){                               //Reset la Grille
@@ -13,6 +16,5 @@ Grille::Grille(){                               //Reset la Grille
                 }
             }           
         }
-
 
 
