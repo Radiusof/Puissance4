@@ -15,13 +15,9 @@ class Joueur{
         Joueur(string ,Jeton);              // Constructeur qui initialise les 2 attributs précédents
         Joueur () = default;                // Constructeur par défaut => Permet d'utiliser le constructeur Jeu dans le fichier Jeu.cpp
 
-        string getNom(){                    //Donne le nom
-            return this -> nom;
-        }       
+        string getNom(); 
 
-        Jeton getCouleur(){                 // Donne la couleur
-            return this -> couleur;
-        }       
+        Jeton getCouleur();
 };
 
 

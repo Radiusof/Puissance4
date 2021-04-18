@@ -17,12 +17,11 @@ int main ()
   
   Jeu jeu;
   jeu.loop();
-
+  
   cout << "Merci" << endl<<endl<<endl;
 
 
   return 0;
 
 }  
-
 
