@@ -14,13 +14,15 @@ int main ()
   
   cout << endl << "     *****************" << endl << "     *  PUISSANCE 4  *" << endl << "     *****************" << endl << endl;  
 
-  Jeu();
   
-  cout << endl<<endl<<endl;
+  Jeu jeu;
+  jeu.loop();
+
+  cout << "Merci" << endl<<endl<<endl;
 
 
   return 0;
 
-}
+}  
 
 
