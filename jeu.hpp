@@ -1,9 +1,8 @@
 #ifndef _JEU_HPP
 #define _JEU_HPP
 
-#include <cstdlib>
+
 #include <iostream>
-#include "grille.hpp"
 #include "joueur.hpp"
 
 using namespace std;
@@ -17,9 +16,10 @@ class Jeu{
 
         Joueur* joueurCourant;
         
-        Jeu();  // Constructeur demandant à chaque joueur leurs noms pour pouvoir initialiser les deux joueurs. On initialise aussi le pointeur joueurCourant sur le premier joueur.
+        Jeu();                                       // Constructeur demandant à chaque joueur leurs noms pour pouvoir initialiser les deux joueurs. 
+                                                     // On initialise aussi le pointeur joueurCourant sur le premier joueur. 
 
-        void loop();  
+        void loop();                                 //Permet de lancer le jeu , loop tant que pas de victoire.
 
         int checkRight (int pos, Jeton jeton);       // Check si 4 pions similaires à droite
 

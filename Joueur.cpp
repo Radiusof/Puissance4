@@ -8,10 +8,10 @@ Joueur:: Joueur(string nom, Jeton couleur){              // Constructeur qui ini
             this->couleur = couleur;
         }
         
-string Joueur::getNom() {                    //Donne le nom
+string Joueur::getNom() {                               //Donne le nom
             return this -> nom;
         }      
 
-Jeton Joueur::getCouleur(){                 // Donne la couleur
+Jeton Joueur::getCouleur(){                             // Donne la couleur
             return this -> couleur;
         }       
