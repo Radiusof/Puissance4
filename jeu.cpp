@@ -1,12 +1,10 @@
 //Fichier comportant le code du constructeur Jeu
 
-
 #include "jeu.hpp"
 
 using namespace std;
 
-///pas utile
-Grille grille;
+
 
 
 Jeu::Jeu(){
@@ -26,7 +24,7 @@ Jeu::Jeu(){
 
     ///Pour écraser l'ancienne initialisation pour utiliser le bon constructeur il faut faire :
     /// joueur1 = Joueur(nom, couleur);
-    Joueur joueur1 (nom, couleur) ;
+    joueur1= Joueur(nom, couleur) ;
 
     cout << endl << nom << " , tu auras les jetons de couleur: Jaune [o] "<< endl;
 
@@ -38,12 +36,12 @@ Jeu::Jeu(){
     cout << endl << nom << " , tu auras les jetons de couleur: Rouge [x] "<< endl<<endl;
 
     ///Pareil
-    Joueur joueur2 (nom, couleur);
+    joueur2= Joueur(nom, couleur);
 
     ///Atention, vu que tu n'a pas défini un contructeur joueur qui prend en paramètre un autre joueur, le résultat de cette ligne n'est pas forcément celui que tu crois
     ///La bonne façons de faire est de récupérer directement l'adresse de joueur1 en utilisant & :
     /// joueurCourant = &joueur1;
-    joueurCourant = new Joueur (joueur1);    // Initialise le pointeur joueurCourant sur le premier joueur
+    joueurCourant = &joueur1;    // Initialise le pointeur joueurCourant sur le premier joueur
 
 
     cout<< "Le joueur demarrant la partie sera " << joueurCourant -> getNom()<< endl << endl;
@@ -54,8 +52,10 @@ Jeu::Jeu(){
 
 void Jeu::loop(){
 
-                int colonne;
-                int pos;
+            int colonne;
+            int pos;
+
+            do {     
 
                 grille.show();
 
@@ -69,7 +69,7 @@ void Jeu::loop(){
                     ///Bien penser, c'est important de vérifier les inputs utilisateurs
                     if (colonne < 0  || colonne > 6 ){            // si saisie inférieur ou égal à -1 ou supérieur à 6 => erreur
 
-                    cout << "Ce chiffre ne fonctionne pas . " << endl << endl;
+                    cout << "Ce chiffre ne fonctionne pas . Selectionne une colonne pour placer le jeton. " << " 0 , 1 , 2 , 3 , 4 , 5 , 6 " << endl << endl;
 
                     cin.clear();                                    // On remet cin dans un état valide et vide le buffer
 
@@ -77,7 +77,7 @@ void Jeu::loop(){
 
                     } else if (cin.fail()){                         // si saisie n'est pas un int => erreur
 
-                    cerr << "Erreur, saisie incorrecte." << endl << endl;
+                    cerr << "Erreur, saisie incorrecte." << " Selectionne une colonne pour placer le jeton. "<< " 0 , 1 , 2 , 3 , 4 , 5 , 6 "  << endl << endl;
 
                     cin.clear();                                    // On remet cin dans un état valide et vide le buffer
                     cin.ignore(1,'\n');                             //Evite de boucler l'erreur, demande d'ignoner les char
@@ -91,7 +91,6 @@ void Jeu::loop(){
                 }
 
 
-                //grille.checkLigne (pos, joueurCourant -> getCouleur());
 
                 grille.put(colonne, joueurCourant -> getCouleur());       //Insere le résultat sur la grille
 
@@ -99,56 +98,33 @@ void Jeu::loop(){
                 ///faire joueurCourant = &joueur1 assigne la valeur de joueurCourant avec l'adresse de joueur1
                 ///et si l'assignation réussi (dans tout les cas donc) ça renvoie true.
                 ///Cette condition est donc toujours vrai
-                if (joueurCourant = &joueur1){
+                if (joueurCourant == &joueur1){
                     joueurCourant = &joueur2;
                 }
                 else {
                     joueurCourant = &joueur1;
                     }
-
-            ///Tout ce qui est en dessous n'est pas utile, c'est exactement le même code qu'au dessus.
-            ///il faut créer une boucle pour enchainer les coups.
-            grille.show();
-
-            while (true){
-                    cout << "A ton tour, " << joueurCourant -> getNom() << ", Selectionne une colonne pour placer le jeton. " << " 0 , 1 , 2 , 3 , 4 , 5 , 6 " <<endl;
-
-                    cin >> colonne;
-
-                    if (colonne <= -1  || colonne > 6 ){            // si saisie inférieur ou égal à -1 ou supérieur à 6 => erreur
-
-                        cout << "Ce chiffre ne fonctionne pas . " << endl << endl;
-
-                        cin.clear();                                    // On remet cin dans un état valide et vide le buffer
-
-                        continue;
-
-                    } else if (cin.fail()){                             // si saisie n'est pas un int => erreur
-
-                        cerr << "Erreur, saisie incorrecte." << endl << endl;
-
-                        cin.clear();                                    // On remet cin dans un état valide et vide le buffer
-                        cin.ignore(1,'\n');                             //Evite de boucler l'erreur, demande d'ignoner les char
-
-                        continue;
-
-                    } else {
-
-                        break;
-                    }
             }
 
-            grille.put(colonne, joueurCourant -> getCouleur());       //Insere le résultat sur la grille
+            
 
-            if (joueurCourant = &joueur1){
-                    joueurCourant = new Joueur (joueur2);
+            while (victoire(grille.get(pos),joueurCourant -> getCouleur()) == false);
+
+            cout << checkUp(grille.get(pos),joueurCourant -> getCouleur()) << endl;
+
+            if (victoire(grille.get(pos),joueurCourant -> getCouleur()) == true){
+                 if (joueurCourant == &joueur1){
+                    cout <<" Felicitations " << joueurCourant-> getNom()  <<"! Tu as Gagné !" << endl;
                 }
-            else {
-                joueurCourant = new Joueur (joueur1);
+                else if (joueurCourant == &joueur2) {
+                    cout <<" Felicitations " << joueurCourant-> getNom()  <<"! Tu as Gagné !" << endl;
+                    } 
             }
-            grille.show();
-
-}
+        
+            
+            ///Tout ce qui est en dessous n'est pas utile, c'est exactement le même code qu'au dessus.
+            ///il faut créer une boucle pour enchainer les coups.          
+    }
 
 
 
@@ -232,4 +208,45 @@ int Jeu ::checkDownRight (int pos, Jeton jeton){
         else {
              return 0;
         }
+
+
 }
+
+bool Jeu::victoire (int pos, Jeton jeton) {
+        if (checkRight(grille.get(pos),joueurCourant->getCouleur()) >= 4) {
+            return true;
+        }else{
+            if (checkLeft(pos,joueurCourant -> getCouleur()) >= 4){
+                return true;
+            }else{
+                if (checkUp(pos,joueurCourant -> getCouleur()) >= 4) {
+                    return true;
+                }else{
+                    if (checkDown(pos,joueurCourant -> getCouleur()) >= 4) {
+                        return true;
+                    }else{
+                        if (checkUpLeft(pos,joueurCourant -> getCouleur()) >= 4) {
+                            return true;
+                        }else{
+                            if (checkUpRight(pos,joueurCourant -> getCouleur()) >= 4){
+                                return true;
+                            }else{
+                                if (checkDownLeft(pos,joueurCourant -> getCouleur()) >= 4) {
+                                    return true;
+                                }else{
+                                    if  (checkDownRight(pos,joueurCourant -> getCouleur()) >= 4) {
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+
+

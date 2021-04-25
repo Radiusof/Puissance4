@@ -2,6 +2,7 @@
 #define _JOUEUR_HPP
 
 #include <iostream>
+#include "grille.hpp"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ class Joueur{
     public:
         string nom;
 
-        Jeton  couleur;
+        Jeton couleur;
 
         Joueur(string ,Jeton);              // Constructeur qui initialise les 2 attributs précédents
         Joueur () = default;                // Constructeur par défaut => Permet d'utiliser le constructeur Jeu dans le fichier Jeu.cpp

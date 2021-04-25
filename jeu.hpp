@@ -4,7 +4,8 @@
 
 #include <iostream>
 #include "joueur.hpp"
-///puisque tu utilise le classe Grille, il faut inclure sont hpp
+#include "grille.hpp"
+
 
 using namespace std;
 
@@ -38,6 +39,9 @@ class Jeu{
 
         int checkDownRight (int pos, Jeton jeton);   // Check si 4 pions similaires diagonale gauche droite haut bas
 
+        bool victoire (int pos, Jeton jeton);         //boolean checkant la condition de victoire
+        
+        
     };
 
 #endif

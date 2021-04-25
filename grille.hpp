@@ -14,13 +14,13 @@ class Grille{
 
         Grille();
                
-        void put(int colonne, Jeton jeton);          //Mets le jeton passé en paramètre en haut de la colonne passé en paramètre.
+        bool put(int colonne, Jeton jeton);          //Mets le jeton passé en paramètre en haut de la colonne passé en paramètre.
        
         Jeton get(int pos);                          //Retourne la couleur du jeton à la position passée en paramètre.
        
         void show();                                 //Affiche la grille sur le Terminal
         
-        
+        bool complet ();                            // boolean checkant si la grille est complete
 };
 
 

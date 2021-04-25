@@ -10,10 +10,12 @@ Joueur:: Joueur(string nom, Jeton couleur){              // Constructeur qui ini
 
 string Joueur::getNom() {                               //Donne le nom
         /// Tu peux simplement faire return nom, contrairement au contructeur où il y a une ambiguité entre la variable nom et l'attribut nom
-            return this -> nom;
+            /**return this  **/
+
+            return nom;
         }
 
 Jeton Joueur::getCouleur(){                             // Donne la couleur
         /// pareil
-            return this -> couleur;
+            return couleur;
         }
