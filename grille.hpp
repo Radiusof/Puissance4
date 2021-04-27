@@ -20,7 +20,6 @@ class Grille{
        
         void show();                                 //Affiche la grille sur le Terminal
         
-        bool complet ();                            // boolean checkant si la grille est complete
 };
 
 

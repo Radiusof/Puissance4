@@ -31,50 +31,50 @@ Grille::Grille(){                              //Reset la Grille
  }  
 
  bool Grille::put (int colonne, Jeton jeton){
-    bool pleine = false;                                                            // boolean annonçant si la colonne est pleine ou non   
+    bool pleine = false;                                                                 // boolean annonçant si la colonne est pleine ou non   
         for(int i=5;i >= 0; i--) {                                              
-               while (not pleine && grille[colonne + 7*i] != Vide){
-                   if (colonne + 7*i == colonne && grille[colonne + 7*i] != Vide) {
+               while (not pleine && grille[colonne + 7*i] != Vide){                      // Loop du moment que pleine not true et que la position scanné n'est pas Vide
+                   if (colonne + 7*i == colonne && grille[colonne + 7*i] != Vide) {      // Si l'analyse tombe sur le même nombre correspondant à la position sur la grille et entré par l'utilisateur (colonne) ET que cette position n'est pas Vide => Colonne pleine 
                       
                        cout << "Colonne pleine! Choisis une autre colonne" << endl;
                        cin.clear();
 
                        
-                        while (true){                                      // Boucle de vérification de saisie
+                        while (true){                                                    // Boucle de vérification de saisie
                             cin >> colonne;                                     
-                            if (colonne < 0  || colonne > 6 ){             // si saisie inférieur ou égal à -1 ou supérieur à 6 => erreur
+                            if (colonne < 0  || colonne > 6 ){                           // si saisie inférieur ou égal à -1 ou supérieur à 6 => erreur
 
                             cout << "Ce chiffre ne fonctionne pas . Selectionne une colonne pour placer le jeton. " << " 0 , 1 , 2 , 3 , 4 , 5 , 6 " << endl << endl;
 
-                            cin.clear();                                    // On remet cin dans un état valide et vide le buffer
+                            cin.clear();                                                  // On remet cin dans un état valide et vide le buffer
                             
                             continue;
 
-                            } else if (cin.fail()){                         // si saisie n'est pas un int => erreur
+                            } else if (cin.fail()){                                       // si saisie n'est pas un int => erreur
 
                             cerr << "Erreur, saisie incorrecte." << " Selectionne une colonne pour placer le jeton. "<< " 0 , 1 , 2 , 3 , 4 , 5 , 6 " <<  endl << endl;
 
-                            cin.clear();                                    // On remet cin dans un état valide et vide le buffer
-                            cin.ignore(1,'\n');                             //Evite de boucler l'erreur, demande d'ignoner les char
+                            cin.clear();                                                  // On remet cin dans un état valide et vide le buffer
+                            cin.ignore(1,'\n');                                           //Evite de boucler l'erreur, demande d'ignoner les char
 
                             continue;
 
                             } else {
 
-                            break;                                          // sort de la boucle si saisie correcte
+                            break;                                                         // sort de la boucle si saisie correcte
                             }
                         }
 
-                    return  pleine = true + put (colonne, jeton);                                              
+                    return  pleine = true + put (colonne, jeton);                          // Retourne pleine= true et rappelle la fonction put()                                  
                        
                    } else {
-                     i--;  
+                     i--;                                                                  // Sinon, décrémente
                    }
                 }
-            if (not pleine){
+            if (not pleine){                                                               // Une fois sortie de la boucle, si pleine not true, place le jeton sur la grille et retourne true
                 grille [colonne + 7*i] = jeton;
                 return true;
-            }else {
+            }else {                                                                        // Sinon, retourne faux
                 return false;
             }
             }          

@@ -9,7 +9,7 @@
 #include "grille.cpp"
 
 // le compiler ne trouve que le fichier Puissance4.cpp
-//Probléme à régler (check tutoriel Make ?) 
+//Probléme à régler (check tutoriel Make ) 
 // Obliger d'inclure tout les fichiers pour que Puissance4.exe puisse être généré. (solution temporaire)
 
 ///Il faut bien faire attention au fichier que tu inclue
@@ -24,7 +24,10 @@ int main(){
   cout << endl << "     *****************" << endl << "     *  PUISSANCE 4  *" << endl << "     *****************" << endl << endl;
 
   Jeu jeu;
-  jeu.loop();
+
+  
+    jeu.loop();
+
 
   return 0;
   }

@@ -16,6 +16,6 @@ string Joueur::getNom() {                               //Donne le nom
         }
 
 Jeton Joueur::getCouleur(){                             // Donne la couleur
-        /// pareil
+        
             return couleur;
         }
