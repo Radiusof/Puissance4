@@ -1,6 +1,8 @@
 //Fichier comportant le code du constructeur Jeu
 
 #include "jeu.hpp"
+#include "joueur.hpp"
+#include "grille.hpp"
 
 using namespace std;
 
@@ -97,13 +99,16 @@ void Jeu::loop(){
 
 
                 grille.put(colonne, joueurCourant -> getCouleur()); //Insere le résultat sur la grille
-                victoire (grille.get(pos),joueurCourant->getCouleur());
+
+                victoire(grille.get(pos),joueurCourant->getCouleur());
+
                 compteur ++;                                        // Insere +1 au compteur      
 
                 ///Attention = ne vérifie pas l'égalité, == oui
                 ///faire joueurCourant = &joueur1 assigne la valeur de joueurCourant avec l'adresse de joueur1
                 ///et si l'assignation réussi (dans tout les cas donc) ça renvoie true.
                 ///Cette condition est donc toujours vrai
+                
                 if (joueurCourant == &joueur1){
                     joueurCourant = &joueur2;
                 }
@@ -114,18 +119,23 @@ void Jeu::loop(){
                 
             }
            
-            while (compteur != 42 || victoire(grille.get(pos),joueurCourant -> getCouleur()) != false);           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
+            while ((compteur != 42) || (victoire( grille.get(pos),joueurCourant -> getCouleur()) != false));           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
             
            
             if ( compteur == 42){
-                    cout << "Match Nul !"<< endl << endl << "Merci d'avoir joue !" << endl << endl;
-                    cout<< "Press enter to quit" << endl ;
 
-                system("pause");
+                    grille.show();
+
+                    cout << endl << endl << "Match Nul !"<< endl << endl << "Merci d'avoir joue !" << endl << endl;
+                   
+
+                    system("pause");
             } 
-            else if (victoire(grille.get(pos),joueurCourant -> getCouleur()) == true){                                     
+            else if (victoire(grille.get(pos),joueurCourant -> getCouleur()) == true){
+
+                    grille.show();                                     
                
-                    cout <<" Felicitations " << joueurCourant -> getNom()  <<"! Tu as Gagné !" << endl;
+                    cout << endl << endl << " Felicitations " << joueurCourant -> getNom()  <<"! Tu as Gagné !" << endl;
                     system("pause");
                 } 
 }
@@ -136,103 +146,30 @@ void Jeu::loop(){
         ///Ca ne poserais aucun problème, mais il faut éviter d'avoir trop de class, ça nuît à la lisibilité du code
         // Créer un constructeur victoire à part entiére pour la condition victoire, regroupant les 8 fonctions ?
 
-int Jeu::checkRight (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkRight(pos+1, jeton);               // Check si 4 pions similaires à droite
-        }
-        else {
-            return 0;
-            }
-}
-
-int Jeu::checkLeft (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkLeft(pos-1, jeton);                // Check si 4 pions similaires à Gauche
-            }
-        else {
-            return 0;
-            }
-}
-
-int Jeu::checkUp (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkUp(pos-7, jeton);                  // Check si 4 pions similaires en haut
-            }
-        else {
-            return 0;
-            }
-}
-
-int Jeu:: checkDown (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkDown(pos+7, jeton);                // Check si 4 pions similaires en Bas
-            }
-        else {
-            return 0;
-            }
-}
-
-int Jeu::checkUpLeft (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkUpLeft(pos-8, jeton);               // Check si 4 pions similaires diagonale droite gauche bas haut
-        }
-        else {
-            return 0;
-        }
-}
-
-int Jeu:: checkUpRight (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkUpRight(pos-6, jeton);              // Check si 4 pions similaires diagonale gauche droite bas haut
-        }
-        else {
-            return 0;
-        }
-}
-
-int Jeu::checkDownLeft (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-            return 1 + checkDownLeft(pos+6, jeton);             // Check si 4 pions similaires diagonale droite gauche haut bas
-        }
-        else {
-            return 0;
-        }
-}
-
-int Jeu ::checkDownRight (int pos, Jeton jeton){
-        if (joueurCourant -> getCouleur() == grille.get(pos)){
-                return 1 + checkDownRight(pos+8, jeton);        // Check si 4 pions similaires diagonale gauche droite haut bas
-        }
-        else {
-             return 0;
-        }
-
-
-}
-
-bool Jeu::victoire (int pos, Jeton jeton) {
-        if (checkRight(grille.get(pos),joueurCourant->getCouleur()) >= 4) {
+// Ancien code
+/**bool Jeu::victoire (int pos, Jeton couleur) {
+        if (grille.checkRight(grille.get(pos),joueurCourant->getCouleur()) >= 4) {
             return true;
         }else{
-            if (checkLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
+            if (grille.checkLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
                 return true;
             }else{
-                if (checkUp(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
+                if (grille.checkUp(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
                     return true;
                 }else{
-                    if (checkDown(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
+                    if (grille.checkDown(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
                         return true;
                     }else{
-                        if (checkUpLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
+                        if (grille.checkUpLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
                             return true;
                         }else{
-                            if (checkUpRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
+                            if (grille.checkUpRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
                                 return true;
                             }else{
-                                if (checkDownLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
+                                if (grille.checkDownLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
                                     return true;
                                 }else{
-                                    if  (checkDownRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
+                                    if  (grille.checkDownRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
                                         return true;
                                     }else{
                                         return false;
@@ -246,5 +183,22 @@ bool Jeu::victoire (int pos, Jeton jeton) {
         }
         
     }
+**/
 
+bool Jeu::victoire (int pos, Jeton couleur){  
+    if (((grille.checkRight(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkLeft(grille.get(pos),joueurCourant->getCouleur()))) >= 4) {              
+            return true;    // Check la somme des checks Gauche et Droite, si égal ou supérieur à 4 => Victoire = true
 
+    } else if (((grille.checkUp(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDown(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+            return true;    // Check la somme des checks Haut et Bas, si égal ou supérieur à 4 => Victoire = true
+
+    } else if (((grille.checkDownLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkUpRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+            return true;    // Check la somme des checks Diagonales bas gauche et Diagones Haut Droit, si égal ou supérieur à 4 => Victoire = true
+
+    } else if (((grille.checkUpLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDownRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+            return true;    // Check la somme des checks Diagonales Haut gauche et Diagones Bas Droit, si égal ou supérieur à 4 => Victoire = true
+
+    } else {
+            return false;
+    }
+}

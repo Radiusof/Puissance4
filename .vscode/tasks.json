@@ -7,7 +7,8 @@
             "command": "C:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${fileDirname}\\**.cpp",
+                
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
@@ -26,7 +27,8 @@
             "command": "C:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${fileDirname}\\**.cpp",
+                
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
@@ -48,7 +50,8 @@
             "command": "C:\\MinGW\\bin\\cpp.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${fileDirname}\\**.cpp",
+                
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
@@ -60,6 +63,63 @@
             ],
             "group": "build",
             "detail": "compilateur : C:\\MinGW\\bin\\cpp.exe"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cpp.exe générer le fichier actif",
+            "command": "C:\\libexec\\mingw32\\bin\\cpp.exe",
+            "args": [
+                "${fileDirname}\\**.cpp",
+                
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compilateur : C:\\libexec\\mingw32\\bin\\cpp.exe"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe générer le fichier actif",
+            "command": "C:\\libexec\\mingw32\\bin\\g++.exe",
+            "args": [
+                "${fileDirname}\\**.cpp",
+                
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compilateur : C:\\libexec\\mingw32\\bin\\g++.exe"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe générer le fichier actif",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "${fileDirname}\\**.cpp",
+                
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compilateur : C:\\MinGW\\bin\\g++.exe"
         }
     ]
 }
