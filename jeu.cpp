@@ -100,7 +100,11 @@ void Jeu::loop(){
 
                 grille.put(colonne, joueurCourant -> getCouleur()); //Insere le résultat sur la grille
 
+                
+                
                 victoire(grille.get(pos),joueurCourant->getCouleur());
+
+
 
                 compteur ++;                                        // Insere +1 au compteur      
 
@@ -119,7 +123,7 @@ void Jeu::loop(){
                 
             }
            
-            while ((compteur != 42) || (victoire( grille.get(pos),joueurCourant -> getCouleur()) != false));           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
+            while ((compteur != 42) || ((victoire( grille.get(pos),joueurCourant -> getCouleur())) != false));           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
             
            
             if ( compteur == 42){
@@ -128,7 +132,6 @@ void Jeu::loop(){
 
                     cout << endl << endl << "Match Nul !"<< endl << endl << "Merci d'avoir joue !" << endl << endl;
                    
-
                     system("pause");
             } 
             else if (victoire(grille.get(pos),joueurCourant -> getCouleur()) == true){
@@ -136,69 +139,26 @@ void Jeu::loop(){
                     grille.show();                                     
                
                     cout << endl << endl << " Felicitations " << joueurCourant -> getNom()  <<"! Tu as Gagné !" << endl;
+
                     system("pause");
                 } 
 }
 
 
-    
+bool Jeu::victoire (int pos, Jeton couleur){  
+                    if (((grille.checkRight(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkLeft(grille.get(pos),joueurCourant->getCouleur()))) >= 4) {              
+                        return true;    // Check la somme des checks Gauche et Droite, si égal ou supérieur à 4 => Victoire = true
 
-        ///Ca ne poserais aucun problème, mais il faut éviter d'avoir trop de class, ça nuît à la lisibilité du code
-        // Créer un constructeur victoire à part entiére pour la condition victoire, regroupant les 8 fonctions ?
+                    } else if (((grille.checkUp(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDown(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+                        return true;    // Check la somme des checks Haut et Bas, si égal ou supérieur à 4 => Victoire = true
 
-// Ancien code
-/**bool Jeu::victoire (int pos, Jeton couleur) {
-        if (grille.checkRight(grille.get(pos),joueurCourant->getCouleur()) >= 4) {
-            return true;
-        }else{
-            if (grille.checkLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
-                return true;
-            }else{
-                if (grille.checkUp(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
-                    return true;
-                }else{
-                    if (grille.checkDown(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
-                        return true;
-                    }else{
-                        if (grille.checkUpLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
-                            return true;
-                        }else{
-                            if (grille.checkUpRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4){
-                                return true;
-                            }else{
-                                if (grille.checkDownLeft(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
-                                    return true;
-                                }else{
-                                    if  (grille.checkDownRight(grille.get(pos),joueurCourant -> getCouleur()) >= 4) {
-                                        return true;
-                                    }else{
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
+                    } else if (((grille.checkDownLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkUpRight(grille.get(pos), joueurCourant->getCouleur()))) >= 4){
+                        return true;    // Check la somme des checks Diagonales bas gauche et Diagones Haut Droit, si égal ou supérieur à 4 => Victoire = true
+
+                    } else if (((grille.checkUpLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDownRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+                        return true;    // Check la somme des checks Diagonales Haut gauche et Diagones Bas Droit, si égal ou supérieur à 4 => Victoire = true
+
+                    } else {
+                    return false;
                     }
                 }
-            }
-        }
-        
-    }
-**/
-
-bool Jeu::victoire (int pos, Jeton couleur){  
-    if (((grille.checkRight(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkLeft(grille.get(pos),joueurCourant->getCouleur()))) >= 4) {              
-            return true;    // Check la somme des checks Gauche et Droite, si égal ou supérieur à 4 => Victoire = true
-
-    } else if (((grille.checkUp(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDown(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
-            return true;    // Check la somme des checks Haut et Bas, si égal ou supérieur à 4 => Victoire = true
-
-    } else if (((grille.checkDownLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkUpRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
-            return true;    // Check la somme des checks Diagonales bas gauche et Diagones Haut Droit, si égal ou supérieur à 4 => Victoire = true
-
-    } else if (((grille.checkUpLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDownRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
-            return true;    // Check la somme des checks Diagonales Haut gauche et Diagones Bas Droit, si égal ou supérieur à 4 => Victoire = true
-
-    } else {
-            return false;
-    }
-}

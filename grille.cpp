@@ -96,75 +96,91 @@ void Grille::show(){                                         //Affiche la grille
 
 
 int Grille::checkRight (int pos, Jeton jeton){
+    for( int i = 0; i <= 41; i++){    
         if (jeton == grille[pos]){
             return 1 + checkRight(pos+1, jeton);               // Check si 4 pions similaires à droite
         }
         else {
             return 0;
             }
+    }        
 }
 
 int Grille::checkLeft (int pos, Jeton jeton){
+    for( int i = 41; i >= 0; i--){    
         if (jeton == grille[pos]){
             return 1 + checkLeft(pos-1, jeton);                // Check si 4 pions similaires à Gauche
             }
         else {
             return 0;
             }
+    }        
 }
 
 int Grille::checkUp (int pos, Jeton jeton){
+    for( int i = 41; i >= 0; i--){    
         if (jeton == grille[pos]){
             return 1 + checkUp(pos-7, jeton);                  // Check si 4 pions similaires en haut
             }
         else {
             return 0;
             }
+    }        
 }
 
 int Grille:: checkDown (int pos, Jeton jeton){
+    for( int i = 0; i <= 41; i++){    
         if (jeton == grille[pos]){
             return 1 + checkDown(pos+7, jeton);                // Check si 4 pions similaires en Bas
             }
         else {
             return 0;
             }
+    }        
 }
 
 int Grille::checkUpLeft (int pos, Jeton jeton){
+    for( int i = 41; i >= 0; i--){    
         if (jeton == grille[pos]){
             return 1 + checkUpLeft(pos-8, jeton);               // Check si 4 pions similaires diagonale droite gauche bas haut
         }
         else {
             return 0;
         }
+    }    
 }
 
 int Grille:: checkUpRight (int pos, Jeton jeton){
+     for( int i = 41; i >= 0; i--){     
         if (jeton == grille[pos]){
             return 1 + checkUpRight(pos-6, jeton);              // Check si 4 pions similaires diagonale gauche droite bas haut
         }
         else {
             return 0;
         }
+    }    
 }
 
 int Grille::checkDownLeft (int pos, Jeton jeton){
+    for( int i = 0; i <= 41; i++) {    
         if (jeton == grille[pos]){
             return 1 + checkDownLeft(pos+6, jeton);             // Check si 4 pions similaires diagonale droite gauche haut bas
         }
         else {
             return 0;
         }
+    }    
 }
 
 int Grille ::checkDownRight (int pos, Jeton jeton){
+    for( int i = 0; i <= 41; i++) {    
         if (jeton == grille[pos]){
                 return 1 + checkDownRight(pos+8, jeton);        // Check si 4 pions similaires diagonale gauche droite haut bas
         }
         else {
              return 0;
         }
+    }    
 }
 
 
