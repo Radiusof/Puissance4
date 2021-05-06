@@ -4,6 +4,7 @@
 
 #include "jeu.hpp"
 
+
 // le compiler ne trouve que le fichier Puissance4.cpp
 //Probléme à régler (check tutoriel Make ) 
 // Obliger d'inclure tout les fichiers pour que Puissance4.exe puisse être généré. (solution temporaire)

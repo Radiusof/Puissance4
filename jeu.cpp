@@ -54,15 +54,16 @@ Jeu::Jeu(){
 
 void Jeu::loop(){
 
-            int colonne;
-            int pos;
-            int compteur = 0;                                        // Compteur initialisé à 0, +1 à chaque tour de joueur. Si arrive à 42 = Match nul
+    int pos;  
+    int colonne;
+    int compteur = 0;                                        // Compteur initialisé à 0, +1 à chaque tour de joueur. Si arrive à 42 = Match nul
 
-            do {                                                     // La fonction loop se trouve dans une boucle do - while (check L109)
+            do  {
+                                                                   // La fonction loop se trouve dans une boucle do - while (check L109)
                 cout<< endl<<endl;                                   // Saute 2 lignes pour plus de lisibilité
 
                 grille.show();
-
+                
                 cout << endl<< endl<<  "Tour: "<< compteur << endl<< endl;
 
                 while (true){                                        // Ajout d'un code pour checker si le numéro entré par l'utilisateur est   correct
@@ -96,69 +97,57 @@ void Jeu::loop(){
                      }
                 }
 
-
-
                 grille.put(colonne, joueurCourant -> getCouleur()); //Insere le résultat sur la grille
 
+                compteur ++;                                        // Insere +1 au compteur   
+    
                 
-                
-                victoire(grille.get(pos),joueurCourant->getCouleur());
+                if (victoire(grille.pos(colonne),joueurCourant -> getCouleur()) != false){
 
+                    grille.show();                                     
+               
+                    cout << endl << endl << " Felicitations " << joueurCourant -> getNom()  <<"! Tu as Gagne !" << endl;
 
+                    system("pause");
+                    break;  
+                } else {
 
-                compteur ++;                                        // Insere +1 au compteur      
-
-                ///Attention = ne vérifie pas l'égalité, == oui
-                ///faire joueurCourant = &joueur1 assigne la valeur de joueurCourant avec l'adresse de joueur1
-                ///et si l'assignation réussi (dans tout les cas donc) ça renvoie true.
-                ///Cette condition est donc toujours vrai
-                
-                if (joueurCourant == &joueur1){
-                    joueurCourant = &joueur2;
+                         if (joueurCourant == &joueur1){
+                            joueurCourant = &joueur2;
+                        }
+                        else {
+                            joueurCourant = &joueur1;
+                        }
                 }
-                else {
-                    joueurCourant = &joueur1;
-                    }
-                
-                
             }
            
-            while ((compteur != 42) || ((victoire( grille.get(pos),joueurCourant -> getCouleur())) != false));           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
+            while (compteur != 42);           // loop() bouclera tant que le boolean victoire retournera Faux ou que le compteur n'est pas égal à 42
             
-           
-            if ( compteur == 42){
+            if ( compteur == 42) {
 
                     grille.show();
 
                     cout << endl << endl << "Match Nul !"<< endl << endl << "Merci d'avoir joue !" << endl << endl;
                    
                     system("pause");
-            } 
-            else if (victoire(grille.get(pos),joueurCourant -> getCouleur()) == true){
-
-                    grille.show();                                     
-               
-                    cout << endl << endl << " Felicitations " << joueurCourant -> getNom()  <<"! Tu as Gagné !" << endl;
-
-                    system("pause");
                 } 
 }
 
-
-bool Jeu::victoire (int pos, Jeton couleur){  
-                    if (((grille.checkRight(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkLeft(grille.get(pos),joueurCourant->getCouleur()))) >= 4) {              
-                        return true;    // Check la somme des checks Gauche et Droite, si égal ou supérieur à 4 => Victoire = true
-
-                    } else if (((grille.checkUp(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDown(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
-                        return true;    // Check la somme des checks Haut et Bas, si égal ou supérieur à 4 => Victoire = true
-
-                    } else if (((grille.checkDownLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkUpRight(grille.get(pos), joueurCourant->getCouleur()))) >= 4){
-                        return true;    // Check la somme des checks Diagonales bas gauche et Diagones Haut Droit, si égal ou supérieur à 4 => Victoire = true
-
-                    } else if (((grille.checkUpLeft(grille.get(pos),joueurCourant->getCouleur())) + (grille.checkDownRight(grille.get(pos),joueurCourant->getCouleur()))) >= 4){
+bool Jeu::victoire (int pos, Jeton couleur){ 
+    int colonne;
+                    if (grille.checkRight(pos,couleur) + grille.checkLeft(pos,couleur) > 4){              
+                        return true;    // Check la somme des checks Gauche et Droite, si supérieur à 4 => Victoire = true
+                    
+                    } else if (grille.checkUp(pos,couleur) + grille.checkDown(pos, couleur) > 4){
+                        return true;    // Check la somme des checks Haut et Bas, si supérieur à 4 => Victoire = true
+                    
+                    } else if (grille.checkDownLeft(pos, couleur) + grille.checkUpRight(pos, couleur) > 4){
+                        return true;    // Check la somme des checks Diagonales bas gauche et Diagones Haut Droit, si supérieur à 4 => Victoire = true
+                    
+                    } else if (grille.checkUpLeft(pos, couleur) + grille.checkDownRight(pos, couleur) > 4){
                         return true;    // Check la somme des checks Diagonales Haut gauche et Diagones Bas Droit, si égal ou supérieur à 4 => Victoire = true
-
+                    
                     } else {
                     return false;
                     }
-                }
+}                
