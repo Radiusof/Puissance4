@@ -19,18 +19,16 @@ Grille::Grille () {                              //Reset la Grille
  bool Grille::put (int colonne, Jeton jeton){
     int pos;
 
-    bool pleine = false;                                                                 // boolean annonçant si la colonne est pleine ou non   
+  
                                                                     
-        for(int i=5;i >= 0; i--) {                                              
-               while (not pleine && grille[colonne + 7*i] != Vide){                      // Loop du moment que pleine not true et que la position scanné n'est pas Vide
+        for(int i=5;i >= 0; i--) {                     
+                bool pleine = false;                                                                // boolean annonçant si la colonne est pleine ou non                            
+                while ( not pleine && grille[colonne + 7*i] != Vide){                      // Loop du moment que pleine not true et que la position scanné n'est pas Vide
                    if (colonne + 7*i == colonne && grille[colonne + 7*i] != Vide) {      // Si l'analyse tombe sur le même nombre correspondant à la position sur la grille et entré par l'utilisateur (colonne) ET que cette position n'est pas Vide => Colonne pleine 
                       
-                       cout << "Colonne pleine! Choisis une autre colonne" << endl;
-                       cin.clear();
-                        
-                    return pleine = true + put (colonne, jeton);                                             // Retourne  bool pleine= true et rappelle la fonction put() => évite de boucler le message d'erreur + permet au joueur de replacer correctement son pion
+                        pleine = true ;
+                        break;                                             
                                                                               
-                       
                    } else {
                      i--;                                                                  // Sinon, décrémente
                    }

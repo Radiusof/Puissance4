@@ -63,6 +63,7 @@ void Jeu::loop(){
                 
                 cout << endl<< endl<<  "Tour: "<< compteur << endl<< endl;
 
+                
                 while (true){                                        // Ajout d'un code pour checker si le numéro entré par l'utilisateur est   correct
 
 
@@ -70,32 +71,35 @@ void Jeu::loop(){
 
                     cin >> colonne;
 
-                    
                     if (colonne < 0  || colonne > 6 ){              // si saisie inférieur à 0 ou supérieur à 6 => erreur
 
-                    cout << "Ce chiffre ne fonctionne pas ." << endl << endl;
+                        cout << "Ce chiffre ne fonctionne pas ." << endl << endl;
 
-                    cin.clear();                                    // On remet cin dans un état valide et vide le buffer
+                        cin.clear();                                    // On remet cin dans un état valide et vide le buffer
 
-                    continue;
+                        continue;
 
                     } else if (cin.fail()){                         // si saisie n'est pas un int => erreur
 
-                    cerr << "Erreur, saisie incorrecte." << endl << endl;
+                        cerr << "Erreur, saisie incorrecte." << endl << endl;
 
-                    cin.clear();                                    // On remet cin dans un état valide et vide le buffer
-                    cin.ignore(1,'\n');                             //Evite de boucler l'erreur, demande d'ignoner les char
+                        cin.clear();                                    // On remet cin dans un état valide et vide le buffer
+                        cin.ignore(1,'\n');                             //Evite de boucler l'erreur, demande d'ignoner les char
 
-                    continue;
+                        continue;
 
-                     } else {
+                    } else if  (grille.put (colonne, joueurCourant -> getCouleur()) ==  false) {
+                        cout << "Colonne pleine! Choisis une autre colonne" << endl;
+                        cin.clear();
+     
+                        continue;
 
-                       break;                                       // Sort de la boucle si saisie correcte
-                     }
+                    } else {   
+                        break;                                       // Sort de la boucle si saisie correcte
+                    }
+                     
                 }
-
-                grille.put(colonne, joueurCourant -> getCouleur()); //Insere le résultat sur la grille
-
+         
                 compteur ++;                                        // Insere +1 au compteur   
     
                 
@@ -110,18 +114,24 @@ void Jeu::loop(){
                     cout << "Voulez-vous redemarrer une partie ? " << " Oui (Y) ou Non (N) ? "<< endl;
                     cin >> again;
 
-                    if (again == 'Y' || again == 'y'){
-                        grille.reset();
-                        loop();
-                    } else if (again == 'N' || again == 'n'){
-                        cout << "Merci d'avoir joue !" << endl << endl;
-                        system ("pause");
-                    } else {
-                        cout << "Commande invalide, veuillez reesayer => (Y/N)"<< endl;
-                        cin.clear ();
-                        cin >> again;
-                    }
-
+                    bool restart;                                                              
+                    while (restart == false)                                                    // check si le joueur souhaite recommencer une partie ou non                  
+                        if (again == 'Y' || again == 'y'){
+                            grille.reset();                                                         // si oui, reinitiallise la grille et redemarre la partie
+                            loop();
+                            restart = true;
+                        } else if (again == 'N' || again == 'n'){                                   // si non, le programme se ferme
+                            
+                            cout << "Merci d'avoir joue !" << endl << endl;
+                            restart = true;
+                            system ("pause");
+                            
+                        } else {
+                            cout << "Commande invalide, veuillez reesayer => (Y/N)"<< endl;            // si entrée incorrect, demande au joueur de formuler une réponse claire.
+                            restart = false;
+                            cin.clear ();
+                            cin >> again;
+                        }
                     break;  
                 } else {
 
